@@ -38,7 +38,7 @@ class SimpleSpotifyRecommender:
         
     def collect_user_data(self) -> bool:
         """Collect user data from Spotify."""
-        logger.info("🎵 Starting user data collection...")
+        logger.info("Starting user data collection...")
         
         try:
             # Get comprehensive user data
@@ -272,7 +272,7 @@ class SimpleSpotifyRecommender:
     
     def run_analysis(self) -> Dict[str, any]:
         """Run complete analysis and recommendation pipeline."""
-        logger.info("🚀 Starting Spotify music analysis...")
+        logger.info("Starting Spotify music analysis...")
         
         results = {
             'success': False,
@@ -283,7 +283,7 @@ class SimpleSpotifyRecommender:
         try:
             # Step 1: Collect data
             if not self.collect_user_data():
-                logger.error("❌ Data collection failed")
+                logger.error("Data collection failed")
                 return results
             
             # Step 2: Analyze user preferences
@@ -303,7 +303,7 @@ class SimpleSpotifyRecommender:
             return results
             
         except Exception as e:
-            logger.error(f"❌ Analysis failed: {e}")
+            logger.error(f"Analysis failed: {e}")
             results['error'] = str(e)
             return results
 
@@ -324,8 +324,8 @@ def main():
     print(f"REDIRECT_URI: {redirect_uri}")
     
     if not client_id or not client_secret:
-        print("❌ Please set your Spotify credentials in the .env file")
-        print("\n📝 To fix this:")
+        print("Please set your Spotify credentials in the .env file")
+        print("\nTo fix this:")
         print("1. Edit the .env file in your project root")
         print("2. Add your Spotify app credentials:")
         print("   SPOTIFY_CLIENT_ID=your_client_id")
@@ -349,52 +349,52 @@ def main():
             if results['user_analysis']:
                 analysis = results['user_analysis']
                 
-                print(f"\n📊 MUSIC PROFILE:")
+                print(f"\nMUSIC PROFILE:")
                 print("-" * 20)
                 
                 if 'music_mood' in analysis:
-                    print(f"🎭 Music Mood: {analysis['music_mood']}")
+                    print(f" Music Mood: {analysis['music_mood']}")
                 
                 if 'avg_popularity' in analysis:
-                    print(f"⭐ Average Track Popularity: {analysis['avg_popularity']:.1f}/100")
+                    print(f" Average Track Popularity: {analysis['avg_popularity']:.1f}/100")
                 
                 # Display audio features
                 audio_features = ['energy', 'valence', 'danceability', 'acousticness']
                 for feature in audio_features:
                     key = f'avg_{feature}'
                     if key in analysis:
-                        print(f"🎵 {feature.title()}: {analysis[key]:.2f}")
+                        print(f" {feature.title()}: {analysis[key]:.2f}")
                 
                 # Display top artists
                 if 'top_artists' in analysis:
-                    print(f"\n🎤 TOP ARTISTS:")
+                    print(f"\n TOP ARTISTS:")
                     for i, (artist, count) in enumerate(analysis['top_artists'].items(), 1):
                         print(f"  {i}. {artist} ({count} tracks)")
                 
                 # Display recent favorites
                 if 'recent_favorites' in analysis:
-                    print(f"\n🔥 RECENT FAVORITES:")
+                    print(f"\n RECENT FAVORITES:")
                     for i, track in enumerate(analysis['recent_favorites'], 1):
                         print(f"  {i}. {track}")
             
             # Display recommendations
             if results['recommendations']:
-                print(f"\n🎯 RECOMMENDED FOR YOU:")
+                print(f"\n RECOMMENDED FOR YOU:")
                 print("-" * 30)
                 
                 for i, (track_id, track_name, similarity) in enumerate(results['recommendations'][:10], 1):
                     print(f"{i:2d}. {track_name} (Match: {similarity:.2f})")
             
-            print(f"\n✅ Analysis complete! 🎉")
+            print(f"\n Analysis complete! 🎉")
             
         else:
-            print("❌ Analysis failed. Check the error messages above.")
+            print(" Analysis failed. Check the error messages above.")
             if 'error' in results:
                 print(f"Error: {results['error']}")
     
     except Exception as e:
-        print(f"❌ Unexpected error: {e}")
-        print("💡 Make sure:")
+        print(f" Unexpected error: {e}")
+        print(" Make sure:")
         print("  - Your Spotify credentials are correct")
         print("  - You've authorized the app in your browser")
         print("  - You have an active internet connection")
